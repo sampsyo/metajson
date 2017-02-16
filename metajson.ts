@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import * as minimist from 'minimist';
 import * as fs from 'fs';
 
@@ -50,7 +51,6 @@ function make_expr_fun(expr: string): Function {
 function main() {
   // Parse arguments.
   let args = minimist(process.argv.slice(2));
-  console.dir(args);
 
   // Get the input from the specified filename or from stdin.
   let infile = args._[0];
@@ -60,7 +60,10 @@ function main() {
     // Evaluate the source expression.
     let func = make_expr_fun(code);
     let res = func(args);
-    console.log(res);
+
+    // Dump as JSON to stdout.
+    process.stdout.write(JSON.stringify(res, null, 2));
+    process.stdout.write("\n");
 
   }).catch((reason) => {
     console.error(reason);
