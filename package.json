@@ -1,0 +1,19 @@
+{
+  "name": "metajson",
+  "version": "1.0.0",
+  "dependencies": {
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/minimist": "^1.2.0",
+    "@types/node": "^7.0.5",
+    "typescript": "^2.1.4"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "bin": {
+    "metajson": "build/metajson.js"
+  }
+}
