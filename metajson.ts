@@ -39,6 +39,14 @@ export function scope_eval(code: string): any {
   })();
 }
 
+/**
+ * Make a function with the JavaScript expression given as its body and $ as
+ * its only argument. The code is evaluated in strict mode.
+ */
+function make_expr_fun(expr: string): Function {
+  return new Function('$', '"use strict"; return (' + expr + ')');
+}
+
 function main() {
   // Parse arguments.
   let args = minimist(process.argv.slice(2));
@@ -48,7 +56,9 @@ function main() {
   let infile = args._[0];
   let input_promise = infile ? read_string(infile) : read_stdin();
   input_promise.then((code) => {
-    let res = scope_eval('(' + code + ')');
+    let func = make_expr_fun(code);
+    let res = func(args);
+    console.log(res);
   }).catch((reason) => {
     console.error(reason);
   });
