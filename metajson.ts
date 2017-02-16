@@ -30,14 +30,27 @@ function read_stdin(): Promise<string> {
   });
 }
 
+/**
+ * `eval` inside a scope, in strict mode.
+ */
+export function scope_eval(code: string): any {
+  return (function () {
+    return eval("'use strict'; " + code);
+  })();
+}
+
 function main() {
-  let argv = minimist(process.argv.slice(2));
-  let infile = argv._[0];
+  // Parse arguments.
+  let args = minimist(process.argv.slice(2));
+  console.dir(args);
+
+  // Load the input.
+  let infile = args._[0];
   let input_promise = infile ? read_string(infile) : read_stdin();
-  input_promise.then((s) => {
-    console.log(s.length);
+  input_promise.then((code) => {
+    console.log(code.length);
+    scope_eval(code);
   });
-  console.dir(argv);
 }
 
 main();
