@@ -52,13 +52,16 @@ function main() {
   let args = minimist(process.argv.slice(2));
   console.dir(args);
 
-  // Load the input.
+  // Get the input from the specified filename or from stdin.
   let infile = args._[0];
   let input_promise = infile ? read_string(infile) : read_stdin();
+
   input_promise.then((code) => {
+    // Evaluate the source expression.
     let func = make_expr_fun(code);
     let res = func(args);
     console.log(res);
+
   }).catch((reason) => {
     console.error(reason);
   });
