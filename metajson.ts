@@ -48,8 +48,7 @@ function main() {
   let infile = args._[0];
   let input_promise = infile ? read_string(infile) : read_stdin();
   input_promise.then((code) => {
-    console.log(code.length);
-    scope_eval(code);
+    scope_eval('(' + code + ')');
   });
 }
 
