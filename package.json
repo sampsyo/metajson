@@ -1,6 +1,6 @@
 {
   "name": "metajson",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "dependencies": {
     "minimist": "^1.2.0"
   },
@@ -11,8 +11,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "postinstall": "tsc"
+    "build": "tsc"
   },
   "bin": {
     "metajson": "build/metajson.js"
